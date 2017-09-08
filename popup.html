@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link type="text/css" href="style/rest.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="fonts/iconfont.css">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/bootstrap-theme.min.css" rel="stylesheet">
+    <link href="css/popup.css" rel="stylesheet">
+</head>
+<body>
+    <div class="left-plane">
+        <div class="left-head">
+            <div class="left-head-pic"></div>
+        </div>
+        <ul class="nav-menu">
+            <li class="menu-create" ><i class="iconfont icon-add"></i></li>
+            <li class="menu-bugs" for="bugsBody" ><i class="iconfont icon-bug"></i><span class="badge"></span></li>
+            <li class="menu-timeLine" for="timeLineBody" ><i class="iconfont icon-time_line"></i><span class="badge"></span></li>
+            <li class="menu-config" for="configBody" ><i class="iconfont icon-config"></i></li>
+        </ul>
+    </div>
+    <div class="right-plane">
+        <div id="bugsBody"></div>
+        <div id="timeLineBody">
+            <div style="height: 30px;">
+                <div class="timeLine-status" id="timeLineStatus"></div>
+                <select class="form-control" id="timeLineSel"></select>
+                <label>
+                    <input type="checkbox" id="timeLineEdit"> edit
+                </label>
+                <button type="button" class="btn btn-default btn-xs" id="timeLineClear">清空</button>
+                <button type="button" class="btn btn-default btn-xs" id="timeLineLog">记录工时</button>
+            </div>
+            <ul id="timelineList" ></ul>
+            <textarea class="form-control" id="timelineText" placeholder="ctr+enter"></textarea> 
+        </div>
+        <div id="configBody">
+            <div>
+                <div class="input-group input-group-sm">
+                    <span class="input-group-addon">域名</span>
+                    <input type="text" class="form-control" for="config_host" placeholder="http://58.210.193.194:8089/" >
+                </div>
+                <div class="input-group input-group-sm">
+                    <span class="input-group-addon">用户</span>
+                    <input type="text" class="form-control" for="config_userName" placeholder="用户名" >
+                </div>
+                <div class="input-group input-group-sm">
+                    <span class="input-group-addon">密码</span>
+                    <input type="text" class="form-control" for="config_password" placeholder="密码" >
+                </div>
+                <button type="button" class="btn btn-default btn-xs getList-btn">刷新项目列表</button>
+                <div class="input-group input-group-sm" id="projectListBox"></div>
+            </div>
+        </div>
+    </div>
+    <div id="loadingPlane">
+        <div class="wrap">
+            <div class="outer"></div>
+            <div class="inner">
+                <div class="spiner"></div>
+                <div class="filler"></div>
+                <div class="masker"></div>
+            </div>
+            <div class="inner2">
+                <div class="spiner"></div>
+                <div class="filler"></div>
+                <div class="masker"></div>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="libs/jquery-3.2.1.min.js"></script>
+<script src="libs/moment.min.js"></script>
+<script src="libs/lodash.min.js"></script>
+<script src="js/api.js"></script>
+<script src="js/timedb.js"></script>
+<script src="js/popup.js"></script>
+
+</html>
+
+
