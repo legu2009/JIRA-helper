@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link type="text/css" href="style/rest.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="fonts/iconfont.css">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/capture.css" rel="stylesheet">
+</head>
+<body>
+    <canvas id="canvas"></canvas>
+    <div id="toolbar" class="toolbar-warper" 
+        :style="{top: style.top + 'px', left: style.left + 'px'}" 
+        @click.mousedown="dragdown" @click.mouseup="dragup" @click.mousemove="dragmove"
+    >
+        <div class="toolbar-box">
+            <i class="iconfont icon-zhengfangxing"></i>
+            <i class="iconfont icon-qianbixiugai"></i>
+            <i class="iconfont icon-a"></i>
+            <span class="split"></span>
+            <i class="iconfont icon-chexiao"></i>
+            <i class="iconfont icon-quxiao"></i>
+            <i class="iconfont icon-queding"></i>
+        </div>
+    </div>
+</body>
+<script src="libs/jquery-3.2.1.min.js"></script>
+<script src="libs/moment.min.js"></script>
+<script src="libs/lodash.min.js"></script>
+<script src="libs/vue.min.js"></script>
+<script src="js/api.js"></script>
+<script src="js/timedb.js"></script>
+<script src="js/capture.js"></script>
+</html>
+
+

@@ -15,11 +15,13 @@ var TIME_DB = (function () {
     });
 
     return {
-        insert: function (txt) {
+        insert: function (txt, day, hour) {
             var mot = moment();
             var id = ++_id;
+            hour = hour || mot.format('HH');
+            day =  day || mot.format('YYYY-MM-DD');
             db.transaction(function (tx) {
-                tx.executeSql(`INSERT INTO TIMELOG (id, day, hour, log) VALUES (${id}, "${mot.format('YYYY-MM-DD')}", "${mot.format('HH')}", "${txt}")`);
+                tx.executeSql(`INSERT INTO TIMELOG (id, day, hour, log) VALUES (${id}, "${day}", "${hour}", "${txt}")`);
             });
             return id;
         },
@@ -28,13 +30,20 @@ var TIME_DB = (function () {
                 tx.executeSql(`SELECT id, hour, log FROM TIMELOG where day="${day}" ORDER BY hour`, [], function (tx, results) { 
                     var res = [], item;
                     var len = results.rows.length, i;
+                    var _hour = '';
+                    var tmp;
                     for (i = 0; i < len; i++){
                         item = results.rows.item(i);
-                        res.push({
+                        if (_hour != item.hour) {
+                            tmp = [];
+                            res.push({hour: item.hour, items: tmp});
+                            _hour = item.hour;
+                        }
+                        tmp.push({
                             hour: item.hour,
                             log: item.log,
                             id: item.id
-                        })
+                        });
                     }
                     callback(res);
                 }, null);

@@ -177,7 +177,8 @@ var APIS = (function () {
                         var res  = {};
                         _.forEach(tds, function (td) {
                             var m = td.match(reg);
-                            res[m[1]] = m[2];
+                            var mt = m[1].match(/^(\d{2})(\d{2})(\d{4})$/);
+                            res[`${mt[3]}-${mt[2]}-${mt[1]}`] = m[2];
                         })
                         return res;
                     })
@@ -185,3 +186,31 @@ var APIS = (function () {
         }
     };
 })();
+
+var UTILS = (function () {
+    return {
+        openUrl: function (optionUrl, filter) {
+            chrome.tabs.getAllInWindow(null, function(tabs) {
+                var optionTab = tabs.filter(filter);
+                if (optionTab.length) {
+                    chrome.tabs.update(optionTab[0].id, {url: optionUrl, selected: true});
+                } else {
+                    chrome.tabs.create({url: optionUrl, selected: true})
+                }
+            });
+        },
+        setBKData: function (key, val) {
+            var bgWin = chrome.extension.getBackgroundPage();
+            if (bgWin && bgWin.page) {
+                bgWin.page[key] = val;
+            }
+        },
+        getBKData: function (key, val) {
+            var bgWin = chrome.extension.getBackgroundPage();
+            if (bgWin && bgWin.page) {
+                return bgWin.page[key] || ''
+            }
+            return '';
+        },
+    }
+})()

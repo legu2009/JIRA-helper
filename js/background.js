@@ -17,7 +17,7 @@ var page = (function () {
             headImage.onload = this.setHeadPic;
             this.rushBugs(true);
             window.setInterval(function () {
-                self.rushBugs(true);
+                //self.rushBugs(true);
             }, 5 * 1000);
         },
         rushBugs: function (isAjax, len) {
