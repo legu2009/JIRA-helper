@@ -171,13 +171,17 @@ var APIS = (function () {
             return this.login().then(function () {
                 return $.get(`${self.host}/secure/TempoUserBoard!timesheet.jspa`)
                     .then(function (data) {
-                        var tr = data.match(/<tr .+? log-activity [\d\D]+?<\/tr>/)[0];
-                        var tds = tr.match(/class="day [\d\D]+?<\/span>/g);
+                        var trs = data.match(/<tr .+? log-activity [\d\D]+?<\/tr>/g);
+                        var tds = [];
+                        _.forEach(trs, function (tr) {
+                            tds = tds.concat(tr.match(/ value-cell [\d\D]+?<\/span>/g));
+                        })
                         var reg = /abbr="(\d+)[\d\D]+class="p(\d+)/;
                         var res  = {};
                         _.forEach(tds, function (td) {
                             var m = td.match(reg);
                             var mt = m[1].match(/^(\d{2})(\d{2})(\d{4})$/);
+                            console.log(3, mt);
                             res[`${mt[3]}-${mt[2]}-${mt[1]}`] = m[2];
                         })
                         return res;

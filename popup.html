@@ -25,6 +25,21 @@
             <div v-show="activePlane == 'timeline'" class="p4" ><timeline-plane :is-show="activePlane == 'timeline'"></timeline-plane></div>
             <div v-show="activePlane == 'config'" class="config-plane p4"><config-plane :is-show="activePlane == 'config'"></config-plane></div>
         </div>
+        <div id="loadingPlane">
+            <div class="wrap">
+                <div class="outer"></div>
+                <div class="inner">
+                    <div class="spiner"></div>
+                    <div class="filler"></div>
+                    <div class="masker"></div>
+                </div>
+                <div class="inner2">
+                    <div class="spiner"></div>
+                    <div class="filler"></div>
+                    <div class="masker"></div>
+                </div>
+            </div>
+        </div>
     </div>
 </body>
 <script src="libs/jquery-3.2.1.min.js"></script>

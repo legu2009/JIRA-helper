@@ -8,28 +8,28 @@
     <link href="css/capture.css" rel="stylesheet">
 </head>
 <body>
-    <canvas id="canvas"></canvas>
+    <canvas id="bgCanvas"></canvas>
+    <div id="frontCanvas"></div>
     <div id="toolbar" class="toolbar-warper" 
         :style="{top: style.top + 'px', left: style.left + 'px'}" 
-        @click.mousedown="dragdown" @click.mouseup="dragup" @click.mousemove="dragmove"
     >
         <div class="toolbar-box">
-            <i class="iconfont icon-zhengfangxing"></i>
-            <i class="iconfont icon-qianbixiugai"></i>
-            <i class="iconfont icon-a"></i>
+            <i class="iconfont icon-zhengfangxing" :class="{active: status == 'rect'}"  @click="btnClick('rect')"></i>
+            <i class="iconfont icon-qianbixiugai"  :class="{active: status == 'line'}"  @click="btnClick('line')"></i>
+            <i class="iconfont icon-a"             :class="{active: status == 'text'}"  @click="btnClick('text')"></i>
             <span class="split"></span>
-            <i class="iconfont icon-chexiao"></i>
-            <i class="iconfont icon-quxiao"></i>
-            <i class="iconfont icon-queding"></i>
+            <i class="iconfont icon-chexiao"  @click="btnClick('redo')"></i>
+            <i class="iconfont icon-quxiao"  @click="btnClick('cancel')"></i>
+            <i class="iconfont icon-queding"  @click="btnClick('ok')"></i>
         </div>
     </div>
 </body>
 <script src="libs/jquery-3.2.1.min.js"></script>
-<script src="libs/moment.min.js"></script>
 <script src="libs/lodash.min.js"></script>
 <script src="libs/vue.min.js"></script>
 <script src="js/api.js"></script>
 <script src="js/timedb.js"></script>
+<script src="zrender/r.js"></script>
 <script src="js/capture.js"></script>
 </html>
 

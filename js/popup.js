@@ -53,12 +53,14 @@ Vue.component('bugs-plane', {
         fixBug: function (item, index) {
             var self = this;
             if (item.result === -1) return;
+            LOADING.show();
             APIS.fixBug({
                 key: item.key,
                 id: item.id
             }, item.result).then(function () {
                 self.lists.splice(index, 1);
-                self.$dispatch('updateNum', 'bugs', this.lists.length)
+                self.$dispatch('updateNum', 'bugs', this.lists.length);
+                LOADING.hide();
             });
         },
         linkBug: function (item) {
