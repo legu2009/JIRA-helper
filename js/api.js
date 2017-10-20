@@ -181,12 +181,29 @@ var APIS = (function () {
                         _.forEach(tds, function (td) {
                             var m = td.match(reg);
                             var mt = m[1].match(/^(\d{2})(\d{2})(\d{4})$/);
-                            console.log(3, mt);
                             res[`${mt[3]}-${mt[2]}-${mt[1]}`] = m[2];
                         })
                         return res;
                     })
-                })
+            })
+        },
+        getCreatConfig: function () {
+            var self = this;
+            return this.login().then(function () {
+                return $.get(`${self.host}/secure/QuickCreateIssue!default.jspa?decorator=none&_=` + new Date)
+                    .then(function (data) {
+                        return data;
+                    })
+            })
+        },
+        searchPerson: function () {
+            var self = this;
+            return this.login().then(function () {
+                return $.get(`${self.host}/rest/api/latest/user/assignable/multiProjectSearch`, {username:'', projectKeys: 'SPM', maxResults: 50, startAt: 0})
+                    .then(function (data) {
+                        return data;
+                    })
+            })
         }
     };
 })();

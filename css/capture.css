@@ -25,9 +25,6 @@ body {
     width: 100vw;
     -webkit-user-select: none;
 }
-#canvas {
-    display: block;
-}
 .toolbar-warper {
     position: absolute;
     padding: 6px;
@@ -90,5 +87,151 @@ body {
 .hide-div-input:focus, .hide-input:focus {
     outline-offset: none;
     outline: none;
+}
+#saveCanvas, #bgCanvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+.right-body {
+    margin-left: 0px;
+    position: relative;
+    overflow: auto;
+    height: 100vh;
+    transition: all 1s ease 0s;  
+}
+.right-body.show-left {
+    margin-left: 230px;
+}
+.img-warper {
+    float: left;
+    width: 0px;
+    height: 100vh;
+    background-color: #535353;
+    overflow: hidden;
+    transition: all 1s ease 0s;  
+}
+.img-warper.active {
+    width: 230px;
+    overflow: auto;
+}
+.img-warper img {
+    display: block;
+    max-width: 200px;
+    margin: 10px auto 0 auto;
+}
+
+.img-warper .img-item-title {
+    color: white;
+    text-align: center;
+    height: 20px;
+    overflow: hidden;
+}
+.bounce-enter {
+    animation: bounce-in .5s;
+}
+.bounce-leave {
+    animation: bounce-out .5s;
+}
+@keyframes bounce-in {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+@keyframes bounce-out {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
+.clearfix:after {
+    content: ".";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden; 
+}
+.bs-example-modal-lg .form-group {
+    float: left;
+    width: 50%;
+}
+.bs-example-modal-lg .form-label {
+    display: inline-block;
+    width: 100px;
+    text-align: right;
+    margin-right: 10px;
+}
+
+form.aui .icon-required {
+    left: 100%;
+    position: absolute;
+    top: 5px;
+}
+.field-group {
+    margin-bottom: 4px;
+}
+.field-group>label, .field-group>aui-label {
+    padding: 5px 0 0 0;
+    position: relative;
+    text-align: right;
+    width: 130px;
+    word-wrap: break-word;
+    float: left;
+}
+
+
+.aui-icon.icon-required, .aui-icon.icon-f-required {
+    width: 10px;
+    background-image:url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAARUlEQVR4AWOAgQsu5v8ZSAIIjaVAbA4yAEqXkmpAMxDfABkApZtJNYARiHtABkBpRlIN0AbiK0AcBMQrQHyGkQdGwSgAAPtCJnBUV/TSAAAAAElFTkSuQmCC');
+}
+
+.aui-icon {
+    background-repeat: no-repeat;
+    background-position: 0 0;
+    border: none;
+    display: inline-block;
+    height: 16px;
+    margin: 0;
+    padding: 0;
+    text-align: left;
+    text-indent: -999em;
+    vertical-align: text-bottom;
+    width: 16px;
+}
+#createIssueModal #project,#createIssueModal #issuetype,
+#createIssueModal .description,#createIssueModal .wiki-preview,#createIssueModal #assign-to-me-trigger, .issue-link-edit > label:first-child/*,#createIssueModal #issuetype-options,#createIssueModal .wiki-renderer-icon,
+
+#createIssueModal #reporter,#createIssueModal #assignee,*/ {
+    display: none;
+}
+#createIssueModal .input-group {
+    
+}
+.form-control-select {
+    display: inline;
+    width: auto;
+}
+#createIssueModal .form-control {
+    width: auto;
+    display: inline;
+    min-width: 500px;
+}
+.aui-ss-entity-icon {
+    box-sizing: border-box;
+    height: 16px;
+    width: 16px;
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 6px;
+}
+
+.modal-backdrop {
+    left: 200px;
 }
 

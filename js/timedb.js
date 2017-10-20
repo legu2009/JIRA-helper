@@ -15,19 +15,27 @@ var TIME_DB = (function () {
     });
 
     return {
-        insert: function (txt, day, hour) {
+        insert: function (txt, day, hour, callback) {
             var mot = moment();
             var id = ++_id;
             hour = hour || mot.format('HH');
             day =  day || mot.format('YYYY-MM-DD');
             db.transaction(function (tx) {
-                tx.executeSql(`INSERT INTO TIMELOG (id, day, hour, log) VALUES (${id}, "${day}", "${hour}", "${txt}")`);
+                tx.executeSql('SELECT max(id) as id FROM TIMELOG', [], function (tx, results) {
+                    var _id = 1;
+                    if (results.rows.length) {
+                        _id = results.rows.item(0).id * 1 + 1;
+                    }
+                    tx.executeSql(`INSERT INTO TIMELOG (id, day, hour, log) VALUES (${_id}, "${day}", "${hour}", "${txt}")`);
+                    callback(_id)
+                }, null);
             });
-            return id;
         },
         getTimeLine: function (day, callback) {
             db.transaction(function (tx) { 
+                console.log(`SELECT id, hour, log FROM TIMELOG where day="${day}" ORDER BY hour`)
                 tx.executeSql(`SELECT id, hour, log FROM TIMELOG where day="${day}" ORDER BY hour`, [], function (tx, results) { 
+                    console.log(results)
                     var res = [], item;
                     var len = results.rows.length, i;
                     var _hour = '';

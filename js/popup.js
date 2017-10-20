@@ -101,7 +101,7 @@ Vue.component('config-plane', {
             },
             projectList: JSON.parse(localStorage['config_project_list']|| '[]'),
             placeholder: {
-                host: 'http://58.210.193.194:8089/',
+                host: '',
                 userName: '用户名',
                 password: '密码'
             }
@@ -299,16 +299,18 @@ Vue.component('timeline-plane', {
             })
         },
         addTimeline: function () {
-            var insertId = TIME_DB.insert(this.text, this.selDay);
-            var hour = moment().format('HH');
-            var dbList = this.dbList;
-            var f = _.find(dbList, function (item) { return item.hour == hour});
-            if (f) {
-                f.items.push({hour: hour, id: insertId, log: this.text})
-            } else {
-                dbList.push({hour: hour, items: [{hour: hour, id: insertId, log: this.text}]})
-            }
-            this.text = '';
+            var self = this;
+            TIME_DB.insert(this.text, this.selDay, null, function (insertId) {
+                var hour = moment().format('HH');
+                var dbList = self.dbList;
+                var f = _.find(dbList, function (item) { return item.hour == hour});
+                if (f) {
+                    f.items.push({hour: hour, id: insertId, log: self.text})
+                } else {
+                    dbList.push({hour: hour, items: [{hour: hour, id: insertId, log: self.text}]})
+                }
+                self.text = '';
+            });            
         },
         delAllDay: function () {
             TIME_DB.delTimeLine(this.selDay);
@@ -330,6 +332,7 @@ Vue.component('timeline-plane', {
             var self = this;
             this.listHeight = document.body.clientHeight -120;
             TIME_DB.getTimeLine(this.selDay, function (res) {
+                console.log(res);
                 self.dbList = res;
             })
             var options = this.options;
@@ -374,15 +377,20 @@ var page = new Vue({
     methods: {
         changPlane: function (plane) {
             if (plane == 'add') {
-                chrome.tabs.captureVisibleTab(null, {
-                    format: "png"
-                }, function (data) {
-                    if (chrome.extension.lastError) {}
-                    UTILS.setBKData('lastCaptureImg', data);
-                    chrome.tabs.create({
-                        url: 'capture.html'
+                chrome.tabs.getSelected(null, function (_tab) {
+                    console.log(_tab);
+                    chrome.tabs.captureVisibleTab(_tab.windowId, {
+                        format: "png"
+                    }, function (data) {
+                        if (chrome.extension.lastError) {}
+                        UTILS.setBKData('lastCaptureImg', data);
+                        UTILS.setBKData('lastCaptureTitle', _tab.title);
+                        UTILS.setBKData('lastCaptureUrl', _tab.url);
+                        chrome.tabs.create({
+                            url: 'capture.html'
+                        });
                     });
-                });
+                })
                 return;
             }
             this.activePlane = plane;
@@ -404,6 +412,6 @@ var page = new Vue({
 });
 APIS.login().then(function (headUrl) {
     if (headUrl) {
-        page.headPic = headUrl.replace('small', 'big');
+        page.headPic = headUrl;//.replace('small', 'big');
     }
 });
