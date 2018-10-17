@@ -4,16 +4,16 @@
       "persistent": false
    },
    "browser_action": {
-      "default_icon": "images/Gaia-tree.png",
+      "default_icon": "images/tree.png",
       "default_popup": "popup.html"
    },
    "icons": {
-        "128": "images/Gaia-tree.png"
+        "128": "images/tree.png"
     },
    "manifest_version": 2,
    "default_locale": "en",
-   "description": "gaia jira",
-   "name": "gaia jira",
+   "description": "jira helper",
+   "name": "jira helper",
    "permissions": [ "cookies", "tabs", "\u003Call_urls>", "clipboardWrite"],
    "version": "1.0.0",
    "content_scripts": [
